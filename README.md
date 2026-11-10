@@ -1,264 +1,180 @@
-# 🛍️ ShopX – Full-Stack E-Commerce Platform
+ Splitwise Clone
 
-<div align="center">
-
-### Modern • Responsive • Secure • Scalable
-
-A production-ready e-commerce platform built using **React, Node.js, Express, MongoDB, JWT Authentication, and Cloudinary**.
-
-### 🌐 Live Demo
-
-Frontend: https://shop-x-ecommerce-chi.vercel.app
-
-### 🔗 Backend API
-
-https://shopx-ecommerce-1szf.onrender.com
-
-</div>
+A full-stack expense splitting application with AI chatbot support built using FastAPI (backend) and React (frontend).
 
 ---
 
-## 📖 About The Project
+## Table of Contents
 
-ShopX is a full-stack e-commerce application developed to simulate a real-world online shopping platform. The project focuses on performance, scalability, responsive UI design, secure authentication, and API-driven architecture.
-
-Users can browse products, search and filter categories, manage their cart and wishlist, while administrators can manage inventory and product data through backend APIs.
-
----
-
-## 🚀 Live Deployment
-
-| Service     | URL                                            |
-| ----------- | ---------------------------------------------- |
-| Frontend    | https://shop-x-ecommerce-chi.vercel.app        |
-| Backend API | https://shopx-ecommerce-1szf.onrender.com      |
-| Repository  | https://github.com/PRADEEVERMA/shopX-ecommerce |
+- [Project Overview](#project-overview)  
+- [Features](#features)  
+- [Prerequisites](#prerequisites)  
+- [Setup and Run](#setup-and-run)  
+- [API Documentation](#api-documentation)  
+- [Assumptions](#assumptions-made)  
+- [Folder Structure](#folder-structure)
+- [Images](#images)
+- [License](#license)  
 
 ---
 
-## 📸 Screenshots
+## Project Overview
 
-### 🏠 Home Page
+*System Architecture*
 
-![Home](images/Home.png)
+This project is a Splitwise-like application that allows users to:
+- Manage groups and split expenses
+- Query balances using an AI-powered chatbot
+- View interactive expense visualizations
 
-### 🛒 Product Catalog
-
-![Products](images/Items.png)
-
-### 🛍️ Shopping Cart
-
-![Cart](images/Cart.png)
-
-### 👤 User Registration
-
-![Signup](images/Singup.png)
+**Tech Stack**:
+- 🐍 Backend: FastAPI + Python 3.12
+- ⚛️ Frontend: React + Vite
+- 🐳 Containerization: Docker Compose
 
 ---
 
-## ✨ Key Features
+## Features
 
-### 👥 User Features
-
-* Secure User Authentication (JWT)
-* Product Browsing & Search
-* Category-Based Filtering
-* Add to Cart Functionality
-* Wishlist Management
-* Responsive Design for Mobile & Desktop
-* Dynamic Product Fetching
-* Fast Client-Side Navigation
-
-### 🛠️ Admin Features
-
-* Create Products
-* Update Products
-* Delete Products
-* Inventory Management
-* Cloudinary Image Upload Support
+- User & group management  
+- Expense splitting and balance tracking  
+- AI chatbot interface to query balances and expenses  
+- React frontend with live chat and selections  
+- FastAPI backend exposing RESTful API endpoints  
+- Development environment using Docker for easy setup  
 
 ---
 
-## 🏗️ Tech Stack
+## Prerequisites
 
-### Frontend
-
-* React.js
-* React Router DOM
-* Axios
-* Vite
-* CSS
-
-### Backend
-
-* Node.js
-* Express.js
-* MongoDB Atlas
-* Mongoose
-* JWT Authentication
-* Multer
-* Cloudinary
-
-### Deployment
-
-* Vercel (Frontend Hosting)
-* Render (Backend Hosting)
-* MongoDB Atlas (Database)
+- [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed  
+- (Optional) `make` command (for convenience, if not available run docker-compose commands manually)  
+- Node.js and Python are **not required** if using Docker  
 
 ---
 
-## 📂 Project Structure
+## Setup and Run
 
-```text
-ShopX
-│
-├── frontend
-│   ├── src
-│   │   ├── components
-│   │   ├── pages
-│   │   ├── context
-│   │   ├── api
-│   │   └── assets
-│
-├── backend
-│   ├── controllers
-│   ├── routes
-│   ├── models
-│   ├── middleware
-│   ├── config
-│   └── uploads
-│
-├── images
-└── README.md
+Clone the repo:
+
+git clone https://github.com/yourusername/splitwise-clone.git](https://github.com/SidM81/SplitWise-Clone.git
+cd splitwise-clone
+
+Run:
+
+```
+docker-compose up --build
 ```
 
----
+What This Does
 
-## ⚙️ Local Setup
+    Builds Docker images for both backend and frontend
 
-### Clone Repository
+    Starts the services:
 
-```bash
-git clone https://github.com/PRADEEVERMA/shopX-ecommerce.git
-cd shopX-ecommerce
+        Backend: http://localhost:8000
+
+        Frontend: http://localhost:5173
+
+Stopping the Services
+
+To stop and clean up:
+
+```
+docker-compose down
+```
+Other Option:
+```
+1st Terminal
+cd backend && uvicorn app.main:app --reload
+2nd Terminal
+cd frontend && npm run dev
 ```
 
-### Install Dependencies
+Note:
 
-Backend:
+    Ensure that Docker is installed and running on your machine.
 
-```bash
-cd backend
-npm install
-```
-
-Frontend:
-
-```bash
-cd frontend
-npm install
-```
+    Run these commands in your terminal or PowerShell.
 
 ---
 
-## 🔑 Environment Variables
+## API Documentation
 
-Create a `.env` file inside the backend directory.
+The backend provides the following API endpoints:
 
-```env
-PORT=5000
+| Endpoint         | Method | Description                                      | Request Body / Params                          |
+|------------------|--------|------------------------------------------------|-----------------------------------------------|
+| `/users/`        | GET    | Get list of all users                           | None                                          |
+| `/groups/`       | GET    | Get list of all groups                          | None                                          |
+| `/query`         | POST   | Send a natural language query with user and group context | JSON: `{ "query": "string", "user_id": "string", "group_id": "string" }` |
+| `/expenses/`      | POST   |  Create a new expense           | JSON with expense details                      |
+| `/balances/`     | GET    |  Get balances for users/groups | Query parameters                              |
 
-MONGO_URI=YOUR_MONGODB_URI
-
-JWT_SECRET=YOUR_SECRET_KEY
-
-CLIENT_URL=http://localhost:5173
-
-CLOUDINARY_CLOUD_NAME=YOUR_CLOUD_NAME
-CLOUDINARY_API_KEY=YOUR_API_KEY
-CLOUDINARY_API_SECRET=YOUR_API_SECRET
-```
+> For full OpenAPI docs, visit: [http://localhost:8000/docs](http://localhost:8000/docs) when the backend is running.
 
 ---
 
-## ▶️ Run The Application
+## Assumptions Made
 
-### Start Backend
-
-```bash
-cd backend
-npm run dev
-```
-
-### Start Frontend
-
-```bash
-cd frontend
-npm run dev
-```
-
-Application URLs:
-
-```text
-Frontend → http://localhost:5173
-Backend  → http://localhost:5000
-```
+- The backend API serves on `http://localhost:8000`.
+- The frontend runs on `http://localhost:5173` (default Vite port).
+- User IDs and Group IDs are strings and correspond to actual entries in the backend database.
+- The chatbot endpoint `/query` expects JSON with keys: `query`, `user_id`, and `group_id`.
+- Docker is installed and running on the host machine for containerized setup.
+- The Python backend uses Python 3.12.5.
+- The frontend is a React app bootstrapped with Vite.
+- `docker-compose.yml` handles both backend and frontend containers.
+- Environment variables and secrets are managed locally (e.g., `.env` files) but are not included in this repo for security.
 
 ---
 
-## 📊 Architecture Highlights
+## Folder Structure
 
-* RESTful API Architecture
-* JWT-Based Authentication
-* MongoDB Database Integration
-* Cloudinary Media Storage
-* Reusable React Components
-* Responsive UI Design
-* Production Deployment Pipeline
-* Secure Environment Variable Management
-
----
-
-## 🎯 Future Enhancements
-
-* Razorpay / Stripe Payment Integration
-* Order Tracking System
-* Product Reviews & Ratings
-* Email Notifications
-* Real-Time Notifications
-* Admin Analytics Dashboard
-* Coupon & Discount System
-* Product Recommendation Engine
-
----
-
-## 👨‍💻 Developer
-
-### Pradeep Verma
-
-GitHub:
-https://github.com/PRADEEVERMA
-
-LinkedIn:
-(Add Your LinkedIn Profile)
-
-Repository:
-https://github.com/PRADEEVERMA/shopX-ecommerce
+    splitwise-clone/
+    ├── backend/              # FastAPI backend app
+    │   ├── app/
+    │   │   ├── routers/      # API route handlers
+    │   │   ├── crud.py       # CRUD operations
+    │   │   ├── database.py   # Database connection
+    │   │   ├── main.py       # FastAPI app entrypoint
+    │   │   ├── models.py     # ORM models
+    │   │   └── schemas.py    # Pydantic schemas
+    │   ├── Dockerfile        # Backend Dockerfile
+    │   ├── requirements.txt  # Backend dependencies
+    │   └── .env              # Environment variables (not committed)
+    ├── frontend/             # React frontend app
+    │   ├── src/              # React source code
+    │   ├── public/           # Static assets
+    │   ├── package.json
+    │   ├── vite.config.ts
+    │   └── Dockerfile        # Frontend Dockerfile
+    ├── docker-compose.yml    # Full stack Docker Compose setup
+    ├── README.md             # Project documentation
+    └── .gitignore            # Git ignore rules
 
 ---
 
-## ⭐ Support
+## Images
 
-If you found this project useful, consider giving it a **Star ⭐** on GitHub.
+### Home Page  
+![Home Page](./docs/images/HomePage.png)
 
-Your support helps improve the project and motivates future development.
+### Groups  
+![Groups](./docs/images/Groups.png)
+
+### Expenses  
+![Expenses](./docs/images/Expenses.png)
+
+### Balance View 1  
+![Balance 1](./docs/images/Balance_1.png)
+
+### Balance View 2  
+![Balance 2](./docs/images/Balance_2.png)
 
 ---
 
-<div align="center">
+## License
 
-### Thank You For Visiting ShopX ❤️
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-Built with React • Node.js • MongoDB
-
-</div>
